@@ -1,5 +1,9 @@
 <%@ include file="/init.jsp" %>
 
+<%
+int USA_COUNTRY_ID = 19;
+%>
+
 <portlet:actionURL name="<%=MVCCommandNames.SUBMIT %>" var="createUserAccountURL" />
 <aui:form action="<%= createUserAccountURL %>" method="post" name="fm" >
     <div class="form-group">
@@ -79,9 +83,9 @@
                     <aui:validator name="maxLength">255</aui:validator>
                     <aui:validator name="required" />
                 </aui:input>
-                <aui:input name="state" label="State">
+				<aui:select label="State" name="state">
                     <aui:validator name="required" />
-                </aui:input>
+				</aui:select>
                 <aui:input name="zip" label="Zip Code">
                     <aui:validator name="required" />
                     <aui:validator name="maxLength">5</aui:validator>
@@ -126,4 +130,25 @@
     <aui:button-row>
         <aui:button type="submit" value="Create"/>
     </aui:button-row>
+
+    <aui:script use="liferay-dynamic-select">
+    		new Liferay.DynamicSelect([
+    			{
+    				selectData: Liferay.Address.getCountries,
+    				selectDesc: 'nameCurrentValue',
+    				selectSort: true,
+    				selectId: 'countryId',
+    				selectVal: '<%= USA_COUNTRY_ID %>'
+    			},
+    			{
+    				select: '<portlet:namespace />state',
+    				selectData: Liferay.Address.getRegions,
+    				selectDesc: 'name',
+    				selectSort: true,
+    				selectId: 'regionId',
+    			}
+    		]);
+        </aui:script>
+
+
 </aui:form>
