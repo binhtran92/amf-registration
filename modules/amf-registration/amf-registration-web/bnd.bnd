@@ -1,0 +1,4 @@
+Bundle-Name: amf-registration-web
+Bundle-SymbolicName: com.amf.registration
+Bundle-Version: 1.0.0
+Export-Package: com.amf.registration.constants
