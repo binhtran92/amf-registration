@@ -29,7 +29,7 @@
     <!-- Exceptions -->
 
     <exceptions>
-        <exception>RegistrationValidation</exception>
+        <exception>UserExtraInfo</exception>
     </exceptions>
 
 </service-builder>
