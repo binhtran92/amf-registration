@@ -84,49 +84,49 @@ public class UserExtraInfoLocalServiceImpl
 		final Locale locale = serviceContext.getLocale();
 		final ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(locale, getClass());
 
-		_validateIsBlank(address, "Address", locale);
-		_validateIsBlank(city, "City", locale);
-		_validateIsBlank(zipcode, "Zipcode", locale);
+		_validateIsBlank(address, "Address", resourceBundle);
+		_validateIsBlank(city, "City", resourceBundle);
+		_validateIsBlank(zipcode, "Zipcode", resourceBundle);
 
-		_validateMaxLength(address, "Address", 255, locale);
+		_validateMaxLength(address, "Address", 255, resourceBundle);
 		if (!Validator.isBlank(address2)) {
-			_validateMaxLength(address2, "Address", 255, locale);
+			_validateMaxLength(address2, "Address", 255, resourceBundle);
 		}
-		_validateMaxLength(city, "City", 255, locale);
-		_validateState(state, locale);
-		_validateZipCode(zipcode, locale);
+		_validateMaxLength(city, "City", 255, resourceBundle);
+		_validateState(state, resourceBundle);
+		_validateZipCode(zipcode, resourceBundle);
 	}
 
 
-	public void _validateIsBlank(String field, String fieldName, Locale locale) throws UserExtraInfoException {
+	public void _validateIsBlank(String field, String fieldName, ResourceBundle resourceBundle) throws UserExtraInfoException {
 		if (Validator.isBlank(field)) {
-			throw new UserExtraInfoException(format(locale,
+			throw new UserExtraInfoException(format(resourceBundle,
 					"field-must-not-be-null", new Object[]{fieldName}));
 		}
 	}
 
-	private void _validateMaxLength(String field, String fieldName, int maxLength, Locale locale) throws UserExtraInfoException {
+	private void _validateMaxLength(String field, String fieldName, int maxLength, ResourceBundle resourceBundle) throws UserExtraInfoException {
 		if (field.length() > maxLength) {
-			throw new UserExtraInfoException(format(locale,
+			throw new UserExtraInfoException(format(resourceBundle,
 					"field-length-must-not-exceed-x-characters", new Object[]{fieldName, maxLength}));
 		}
 	}
 
-	private void _validateState(int state, Locale locale) throws UserExtraInfoException {
+	private void _validateState(int state, ResourceBundle resourceBundle) throws UserExtraInfoException {
 		try {
 			final Region region = RegionServiceUtil.getRegion(state);
 			final long countryId = region.getCountryId();
 			if (countryId != US_COUNTRY_ID) {
-				throw new UserExtraInfoException(get(locale, "state-code-is-invalid"));
+				throw new UserExtraInfoException(get(resourceBundle, "state-code-is-invalid"));
 			}
 		} catch (PortalException ex) {
-			throw new UserExtraInfoException(get(locale, "state-code-is-invalid"));
+			throw new UserExtraInfoException(get(resourceBundle, "state-code-is-invalid"));
 		}
 	}
 
-	private void _validateZipCode(String zipcode, Locale locale) throws RegistrationValidationException {
+	private void _validateZipCode(String zipcode, ResourceBundle resourceBundle) throws RegistrationValidationException {
 		if (zipcode.length() != 5) {
-			throw new RegistrationValidationException(get(locale, "zipcode-must-have-5-digits"));
+			throw new RegistrationValidationException(get(resourceBundle, "zipcode-must-have-5-digits"));
 		}
 	}
 

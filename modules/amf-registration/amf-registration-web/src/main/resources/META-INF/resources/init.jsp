@@ -13,6 +13,10 @@
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="com.liferay.portal.kernel.model.Contact" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %>
+<%@ page import="com.liferay.portal.kernel.exception.UserScreenNameException" %>
+<%@ page import="com.amf.registration.validator.AMFRegistrationException" %>
+<%@ page import="com.amf.registration.exception.UserExtraInfoException" %>
 
 <liferay-theme:defineObjects />
 

@@ -6,6 +6,20 @@ int USA_COUNTRY_ID = 19;
 
 <portlet:actionURL name="<%=MVCCommandNames.SUBMIT %>" var="createUserAccountURL" />
 <aui:form action="<%= createUserAccountURL %>" method="post" name="fm" >
+	<liferay-ui:error exception="<%= UserEmailAddressException.MustNotBeDuplicate.class %>" message="the-email-address-you-requested-is-already-taken" />
+	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" message="the-screen-name-you-requested-is-already-taken" />
+    <liferay-ui:error exception="<%= AMFRegistrationException.class %>">
+    <%
+        AMFRegistrationException rve = (AMFRegistrationException)errorException;
+    %>
+            <liferay-ui:message key="<%= rve.getMessage() %>" />
+    </liferay-ui:error>
+    <liferay-ui:error exception="<%= UserExtraInfoException.class %>">
+    <%
+        UserExtraInfoException rve = (UserExtraInfoException)errorException;
+    %>
+            <liferay-ui:message key="<%= rve.getMessage() %>" />
+    </liferay-ui:error>
     <div class="form-group">
         <h3 class="sheet-subtitle">Basic Info</h3>
         <div class="row">
@@ -34,6 +48,7 @@ int USA_COUNTRY_ID = 19;
             </div>
             <div class="col-md-5">
                 <aui:input name="password1" label="Password" type="password">
+                    <aui:validator name="required" />
                     <aui:validator errorMessage="invalid-password-policy" name="custom">
                         function(val, fieldNode, ruleValue) {
                             var regex = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{6,}$/);
@@ -42,6 +57,7 @@ int USA_COUNTRY_ID = 19;
                     </aui:validator>
                 </aui:input>
                 <aui:input name="password2" label="Confirm Password" type="password">
+                    <aui:validator name="required" />
                     <aui:validator name="equalTo" errorMessage="Password not match">'#<portlet:namespace />password1'</aui:validator>
                 </aui:input>
                 <aui:input name="birthday" label="Birthday" model="<%= Contact.class %>"/>
