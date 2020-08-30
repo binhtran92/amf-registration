@@ -2,6 +2,8 @@ package com.amf.registration.portlet.action;
 
 import com.amf.registration.constants.AMFRegistrationPortletKeys;
 import com.amf.registration.constants.MVCCommandNames;
+import com.amf.registration.validator.AMFRegistrationException;
+import com.amf.registration.validator.AMFRegistrationValidator;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.*;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
@@ -32,14 +34,14 @@ public class RegisterUserAccountMVCActionCommand extends BaseMVCActionCommand {
     @Override
     protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
         try {
-            _handleCreateUserAccount(actionRequest, actionResponse);
+            _createUserAccount(actionRequest, actionResponse);
         } catch (Exception exception) {
             SessionErrors.add(
                     actionRequest, exception.getClass(), exception);
         }
     }
 
-    private void _handleCreateUserAccount(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+    private void _createUserAccount(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
         ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(
                 WebKeys.THEME_DISPLAY);
 
@@ -63,6 +65,9 @@ public class RegisterUserAccountMVCActionCommand extends BaseMVCActionCommand {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(
                 User.class.getName(), actionRequest);
 
+        AMFRegistrationValidator.validateBasicInfo( firstName,  lastName,  userName,  email,  birthdayDay,
+         birthdayMonth,  birthdayYear,  password1,  password2);
+
         final User user = _userService.addUser(company.getCompanyId(), false, password1, password2,
                 false, userName, email, DEFAULT_INT, EMPTY_STRING,
                 themeDisplay.getLocale(), firstName, EMPTY_STRING, lastName, DEFAULT_INT, DEFAULT_INT,
@@ -78,15 +83,20 @@ public class RegisterUserAccountMVCActionCommand extends BaseMVCActionCommand {
         _sendRedirect(actionRequest, actionResponse, themeDisplay, user);
     }
 
-    private void _addReminder(String reminderQueryQuestion, String reminderQueryAnswer, User user) {
+    private void _addReminder(String reminderQueryQuestion, String reminderQueryAnswer, User user) throws AMFRegistrationException {
+        AMFRegistrationValidator.validateIsNull(reminderQueryAnswer, "Reminder answer");
+
         user.setReminderQueryQuestion(reminderQueryQuestion);
         user.setReminderQueryAnswer(reminderQueryAnswer);
         _userLocalService.updateUser(user);
     }
 
-    private void _addPhoneNumber(ActionRequest actionRequest, ServiceContext serviceContext, User user) throws PortalException {
+    private void _addPhoneNumber(ActionRequest actionRequest, ServiceContext serviceContext, User user) throws PortalException, AMFRegistrationException {
         final String homePhone = ParamUtil.getString(actionRequest, "home_phone");
         final String mobilePhone = ParamUtil.getString(actionRequest, "mobile_phone");
+
+        AMFRegistrationValidator.validatePhoneNumber(homePhone);
+        AMFRegistrationValidator.validatePhoneNumber(mobilePhone);
 
         if (Validator.isNotNull(homePhone)) {
             _phoneLocalService.addPhone(user.getUserId(), Contact.class.getName(), user.getContactId(), homePhone,
