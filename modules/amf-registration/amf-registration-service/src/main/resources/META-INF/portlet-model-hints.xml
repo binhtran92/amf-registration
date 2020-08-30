@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.amf.registration.model.UserExtraInfo">
+		<field name="uuid" type="String" />
+		<field name="extraInfoId" type="long" />
+		<field name="userId" type="long" />
+		<field name="address" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="address2" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="city" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="state" type="int" />
+		<field name="zip" type="String">
+			<hint name="max-length">5</hint>
+		</field>
+	</model>
+</model-hints>

@@ -24,16 +24,6 @@
             <order-column name="userId"/>
         </order>
 
-        <!-- Finder methods -->
-
-        <finder name="UserId" return-type="Collection">
-            <finder-column name="userId"/>
-        </finder>
-
-        <finder name="extraInfoId" return-type="Collection">
-            <finder-column name="extraInfoId"/>
-        </finder>
-
     </entity>
 
     <!-- Exceptions -->
