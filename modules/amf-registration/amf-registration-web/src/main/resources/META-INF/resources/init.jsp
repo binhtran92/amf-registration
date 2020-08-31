@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,6 +12,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -23,8 +25,8 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.amf.registration.constants.MVCCommandNames" %><%@
-page import="com.amf.registration.exception.UserExtraInfoException" %><%@
-page import="com.amf.registration.validator.AMFRegistrationException" %>
+page import="com.amf.registration.exception.RegistrationValidationException" %><%@
+page import="com.liferay.portal.kernel.exception.NoSuchRegionException" %>
 
 <%@ page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %><%@
 page import="com.liferay.portal.kernel.exception.UserScreenNameException" %><%@

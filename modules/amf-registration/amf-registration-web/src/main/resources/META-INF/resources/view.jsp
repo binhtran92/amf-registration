@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,6 +12,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
 <%@ include file="/init.jsp" %>
 
@@ -23,20 +25,11 @@ int USA_COUNTRY_ID = 19;
 <aui:form action="<%= createUserAccountURL %>" method="post" name="fm">
 	<liferay-ui:error exception="<%= UserEmailAddressException.MustNotBeDuplicate.class %>" message="the-email-address-you-requested-is-already-taken" />
 	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" message="the-screen-name-you-requested-is-already-taken" />
-
-	<liferay-ui:error exception="<%= AMFRegistrationException.class %>">
-
-	<%
-		AMFRegistrationException rve = (AMFRegistrationException)errorException;
-	%>
-
-			<liferay-ui:message key="<%= rve.getMessage() %>" />
-	</liferay-ui:error>
-
-	<liferay-ui:error exception="<%= UserExtraInfoException.class %>">
+	<liferay-ui:error exception="<%= NoSuchRegionException.class %>" message="please-select-a-region" />
+	<liferay-ui:error exception="<%= RegistrationValidationException.class %>">
 
 	<%
-		UserExtraInfoException rve = (UserExtraInfoException)errorException;
+		RegistrationValidationException rve = (RegistrationValidationException)errorException;
 	%>
 
 			<liferay-ui:message key="<%= rve.getMessage() %>" />
@@ -137,13 +130,13 @@ int USA_COUNTRY_ID = 19;
 					<aui:validator name="required" />
 				</aui:input>
 
-				<aui:select label="State" name="state">
-					<aui:validator name="required" />
-				</aui:select>
+				<aui:select label="State" name="state" required="true"/>
 
 				<aui:input label="Zip Code" name="zip">
 					<aui:validator name="required" />
+                    <aui:validator name="digits" />
 					<aui:validator name="maxLength">5</aui:validator>
+                    <aui:validator name="minLength">5</aui:validator>
 				</aui:input>
 			</div>
 
@@ -221,3 +214,22 @@ int USA_COUNTRY_ID = 19;
 		</aui:script>
 
 </aui:form>
+
+<aui:script use="aui-form-validator, aui-overlay-context-panel">
+
+var DEFAULTS_FORM_VALIDATOR = A.config.FormValidator;
+var defaultRequired = DEFAULTS_FORM_VALIDATOR.RULES.required;
+
+var required = function (val, node, ruleValue) {
+    if (node.get('name') === '<portlet:namespace/>state' && node.get('value') == 0) {
+        return false;
+    }
+    return defaultRequired(val, node, ruleValue);
+};
+
+ A.mix(
+    DEFAULTS_FORM_VALIDATOR.RULES, {
+        required: required
+    },
+    true);
+</aui:script>
