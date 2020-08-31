@@ -34,6 +34,24 @@ public class UserExtraInfoLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.portal.kernel.model.User addUserAndExtraInfo(
+			long companyId, String password1, String password2, String userName,
+			String email, String firstName, String lastName, boolean isMale,
+			String phoneNumber, String homePhone, int birthdayMonth,
+			int birthdayDay, int birthdayYear, String address, String address2,
+			String city, int state, String zipcode,
+			String reminderQueryQuestion, String reminderAnswer,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userExtraInfoLocalService.addUserAndExtraInfo(
+			companyId, password1, password2, userName, email, firstName,
+			lastName, isMale, phoneNumber, homePhone, birthdayMonth,
+			birthdayDay, birthdayYear, address, address2, city, state, zipcode,
+			reminderQueryQuestion, reminderAnswer, serviceContext);
+	}
+
+	@Override
 	public com.amf.registration.model.UserExtraInfo addUserExtraInfo(
 			long userId, String address, String address2, String city,
 			int state, String zipcode,

@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
@@ -62,6 +63,16 @@ public interface UserExtraInfoLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link UserExtraInfoLocalServiceUtil} to access the user extra info local service. Add custom service methods to <code>com.amf.registration.service.impl.UserExtraInfoLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public User addUserAndExtraInfo(
+			long companyId, String password1, String password2, String userName,
+			String email, String firstName, String lastName, boolean isMale,
+			String phoneNumber, String homePhone, int birthdayMonth,
+			int birthdayDay, int birthdayYear, String address, String address2,
+			String city, int state, String zipcode,
+			String reminderQueryQuestion, String reminderAnswer,
+			ServiceContext serviceContext)
+		throws PortalException;
+
 	public UserExtraInfo addUserExtraInfo(
 			long userId, String address, String address2, String city,
 			int state, String zipcode, ServiceContext serviceContext)

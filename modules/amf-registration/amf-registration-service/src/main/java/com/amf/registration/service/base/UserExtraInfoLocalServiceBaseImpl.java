@@ -404,6 +404,14 @@ public abstract class UserExtraInfoLocalServiceBaseImpl
 		classNameLocalService;
 
 	@Reference
+	protected com.liferay.portal.kernel.service.ListTypeLocalService
+		listTypeLocalService;
+
+	@Reference
+	protected com.liferay.portal.kernel.service.PhoneLocalService
+		phoneLocalService;
+
+	@Reference
 	protected com.liferay.portal.kernel.service.ResourceLocalService
 		resourceLocalService;
 
