@@ -23,7 +23,9 @@
         <order by="asc">
             <order-column name="userId"/>
         </order>
-
+        <reference entity="User" package-path="com.liferay.portal" />
+        <reference entity="Phone" package-path="com.liferay.portal" />
+        <reference entity="ListType" package-path="com.liferay.portal" />
     </entity>
 
     <!-- Exceptions -->
