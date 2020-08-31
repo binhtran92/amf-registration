@@ -1,37 +1,41 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN"
-        "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+		"http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
 
 <service-builder dependency-injector="ds" package-path="com.amf.registration">
-    <namespace>AMF</namespace>
-    <entity local-service="true" name="UserExtraInfo" remote-service="false" uuid="true">
+	<namespace>AMF</namespace>
+	<entity local-service="true" name="UserExtraInfo" remote-service="false" uuid="true">
 
-        <!-- PK fields -->
+		<!-- PK fields -->
 
-        <column name="extraInfoId" primary="true" type="long"/>
+		<column name="extraInfoId" primary="true" type="long" />
 
-        <!-- Audit fields -->
-        <column name="userId" type="long"/>
-        <column name="address" type="String"/>
-        <column name="address2" type="String"/>
-        <column name="city" type="String"/>
-        <column name="state" type="int"/>
-        <column name="zip" type="String"/>
+		<!-- Audit fields -->
+		<column name="userId" type="long" />
+		<column name="address" type="String" />
+		<column name="address2" type="String" />
+		<column name="city" type="String" />
+		<column name="state" type="int" />
+		<column name="zip" type="String" />
 
-        <!-- Order -->
+		<!-- Order -->
 
-        <order by="asc">
-            <order-column name="userId"/>
-        </order>
-        <reference entity="User" package-path="com.liferay.portal" />
-        <reference entity="Phone" package-path="com.liferay.portal" />
-        <reference entity="ListType" package-path="com.liferay.portal" />
-    </entity>
+		<order by="asc">
+			<order-column name="userId" />
+		</order>
 
-    <!-- Exceptions -->
+		<reference entity="ListType" package-path="com.liferay.portal" />
 
-    <exceptions>
-        <exception>UserExtraInfo</exception>
-    </exceptions>
+		<reference entity="Phone" package-path="com.liferay.portal" />
+
+		<reference entity="User" package-path="com.liferay.portal" />
+
+	</entity>
+
+	<!-- Exceptions -->
+
+	<exceptions>
+		<exception>UserExtraInfo</exception>
+	</exceptions>
 
 </service-builder>

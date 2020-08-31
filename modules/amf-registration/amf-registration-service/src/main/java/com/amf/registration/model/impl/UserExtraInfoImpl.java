@@ -25,7 +25,7 @@ package com.amf.registration.model.impl;
  */
 public class UserExtraInfoImpl extends UserExtraInfoBaseImpl {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a user extra info model instance should use the {@link com.amf.registration.model.UserExtraInfo} interface instead.

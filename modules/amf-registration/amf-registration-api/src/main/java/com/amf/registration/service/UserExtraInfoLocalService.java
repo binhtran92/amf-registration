@@ -73,6 +73,11 @@ public interface UserExtraInfoLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Use <code>UserExtraInfoLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>UserExtraInfoLocalServiceUtil</code>.
+	 */
 	public UserExtraInfo addUserExtraInfo(
 			long userId, String address, String address2, String city,
 			int state, String zipcode, ServiceContext serviceContext)

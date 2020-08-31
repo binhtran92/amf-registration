@@ -54,6 +54,11 @@ public class UserExtraInfoLocalServiceUtil {
 			reminderQueryQuestion, reminderAnswer, serviceContext);
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Use <code>UserExtraInfoLocalService</code> via injection or a <code>ServiceTracker</code> or use <code>UserExtraInfoLocalServiceUtil</code>.
+	 */
 	public static com.amf.registration.model.UserExtraInfo addUserExtraInfo(
 			long userId, String address, String address2, String city,
 			int state, String zipcode,
